@@ -1,0 +1,8 @@
+{
+  "name": "workflow-testing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:phillipbarron/workflow-testing.git",
+  "author": "Phill Barron <phillipbarron242@gmail.com>",
+  "license": "MIT"
+}
