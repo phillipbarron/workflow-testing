@@ -1,0 +1,44 @@
+name: Chromatic Test
+on:
+  push:
+    branches:
+      - pb/add-visual-testing
+
+  pull_request:
+    types:
+        - opened
+        - synchronize
+        - labeled
+        - reopened
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+#    if: "contains(github.event.pull_request.labels.*.name, 'run_chromatic')"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Display Labels
+        run: |
+          echo "${{ toJSON(github.event.pull_request.labels.*.name) }}"
+          echo "${{ contains(github.event.pull_request.labels.*.name, 'run_chromatic') }}"
+
+
+#      - name: Install Storybook
+#        working-directory: ./flexible-frontend
+#        run: |
+#          npm install --frozen-lockfile
+#          npm run build-storybook
+#
+#      - uses: chromaui/action@v1
+#        with:
+#          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+#          workingDir: flexible-frontend
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          skip: ${{ github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'gu-changesets-release-pr[bot]' }}
